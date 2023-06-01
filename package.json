@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/laszlosomogyimusic/Teamagochi#readme",
   "dependencies": {
-    "inquirer": "^9.2.6",
+    "inquirer": "^6.5.0",
     "jest": "^29.5.0"
   }
 }
