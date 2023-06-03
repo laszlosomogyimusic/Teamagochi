@@ -5,7 +5,7 @@ const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
 
-let managerQuestions = require("./src/questions/managerQuestions");
+const managerQuestions = require("./src/questions/managerQuestions");
 const engineerQuestions = require("./src/questions/engineerQuestions");
 const internQuestions = require("./src/questions/internQuestions");
 const mainMenuQuestions = require("./src/questions/mainMenuQuestions");
@@ -66,21 +66,3 @@ const createHtml = () => {
 }
 
 getManagerAnswers();
-
-// getManagerAnswers()
-//   .then(console.log)
-//   .catch((error) => {});
-
-const getAnswers = () => {
-  return inquirer.prompt(questions).then((answers) => {
-    if (answers.is_finished) {
-      return answers;
-    } else {
-      return getAnswers();
-    }
-  });
-}
-
-// getAnswers()
-//   .then(console.log)
-//   .catch((error) => {});
