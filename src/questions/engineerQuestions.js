@@ -19,7 +19,6 @@ const engineerQuestions = [
     name: "gitHub",
     message: "What is the engineer's GitHub account?",
   },
-
 ];
 
 module.exports = engineerQuestions;

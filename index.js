@@ -17,30 +17,28 @@ const render = require("./src/page-template.js");
 
 let employees = [];
 
-// TODO: Write Code to gather information about the development team members, and render the HTML file.
-const questions = [
-  {
-    type: "number",
-    name: "children_count",
-    message: "How many children do you have?",
-  },
-  {
-    type: "input",
-    name: "first_child_name",
-    message: "What is the eldest child's name?",
-  },
-  {
-    type: "confirm",
-    name: "is_finished",
-    message: "Are you done?",
-  },
-];
-
-
 const getManagerAnswers = () => {
   inquirer.prompt(managerQuestions).then((answers) => {
     let manager = new Manager(answers.name, answers.id, answers.email, answers.officeNumber);
     employees.push(manager);
+    console.log(employees);
+    getMainMenu();
+  });
+}
+
+const getEngineerAnswers = () => {
+  inquirer.prompt(engineerQuestions).then((answers) => {
+    let engineer = new Engineer(answers.name, answers.id, answers.email, answers.gitHub);
+    employees.push(engineer);
+    console.log(employees);
+    getMainMenu();
+  });
+}
+
+const getInternAnswers = () => {
+  inquirer.prompt(internQuestions).then((answers) => {
+    let intern = new Intern(answers.name, answers.id, answers.email, answers.school);
+    employees.push(intern);
     console.log(employees);
     getMainMenu();
   });
@@ -62,32 +60,6 @@ const getMainMenu = () => {
 
   });
 }
-
-const getEngineerAnswers = () => {
-  inquirer.prompt(engineerQuestions).then((answers) => {
-    let engineer = new Engineer(answers.name, answers.id, answers.email, answers.gitHub);
-    employees.push(engineer);
-    console.log(employees);
-    getMainMenu();
-  });
-}
-
-const getInternAnswers = () => {
-  return inquirer.prompt(internQuestions).then((answers) => {
-    switch(answers.main_menu) {
-      case "Add an intern":
-        return getInternAnswers();
-        break;
-      case "Add an engineer":
-        return getEngineerAnswers();
-        break;
-      case "Finish building the team":
-        return answers;
-        break;
-    }
-  });
-}
-
 
 const createHtml = () => {
 
