@@ -38,27 +38,37 @@ const questions = [
 
 
 const getManagerAnswers = () => {
-  console.log(managerQuestions);
   inquirer.prompt(managerQuestions).then((answers) => {
     let manager = new Manager(answers.name, answers.id, answers.email, answers.officeNumber);
     employees.push(manager);
     console.log(employees);
+    getMainMenu();
+  });
+}
+
+const getMainMenu = () => {
+  inquirer.prompt(mainMenuQuestions).then((answers) => {
+    switch(answers.main_menu) {
+      case "Add an intern":
+        getInternAnswers();
+        break;
+      case "Add an engineer":
+        getEngineerAnswers();
+        break;
+      case "Finish building the team":
+        createHtml();
+        break;
+    }
+
   });
 }
 
 const getEngineerAnswers = () => {
-  return inquirer.prompt(engineerQuestions).then((answers) => {
-    switch(answers.main_menu) {
-      case "Add an intern":
-        return getInternAnswers();
-        break;
-      case "Add an engineer":
-        return getEngineerAnswers();
-        break;
-      case "Finish building the team":
-        return answers;
-        break;
-    }
+  inquirer.prompt(engineerQuestions).then((answers) => {
+    let engineer = new Engineer(answers.name, answers.id, answers.email, answers.gitHub);
+    employees.push(engineer);
+    console.log(employees);
+    getMainMenu();
   });
 }
 
@@ -78,7 +88,11 @@ const getInternAnswers = () => {
   });
 }
 
-console.log("AA");
+
+const createHtml = () => {
+
+}
+
 getManagerAnswers();
 
 // getManagerAnswers()
