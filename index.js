@@ -5,12 +5,17 @@ const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
 
+let managerQuestions = require("./src/questions/managerQuestions");
+const engineerQuestions = require("./src/questions/engineerQuestions");
+const internQuestions = require("./src/questions/internQuestions");
+const mainMenuQuestions = require("./src/questions/mainMenuQuestions");
+
 const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./src/page-template.js");
 
-let employees;
+let employees = [];
 
 // TODO: Write Code to gather information about the development team members, and render the HTML file.
 const questions = [
@@ -31,69 +36,13 @@ const questions = [
   },
 ];
 
-const managerQuestions = [
-  {
-    type: "input",
-    name: "manager_name",
-    message: "What is the team manager's name?",
-  },
-  {
-    type: "list",
-    message: "What do you want to do next?",
-    name: "main_menu",
-    choices: ["Add an engineer", "Add an intern", "Finish building the team"],
-  },  
-];
-
-const engineerQuestions = [
-  {
-    type: "input",
-    name: "engineer_name",
-    message: "What is the engineer name?",
-  },
-  {
-    type: "list",
-    message: "What do you want to do next?",
-    name: "main_menu",
-    choices: ["Add an engineer", "Add an intern", "Finish building the team"],
-  },  
-];
-
-const internQuestions = [
-  {
-    type: "input",
-    name: "intern_name",
-    message: "What is the intern name?",
-  },
-  {
-    type: "list",
-    message: "What do you want to do next?",
-    name: "main_menu",
-    choices: ["Add an engineer", "Add an intern", "Finish building the team"],
-  },  
-];
-
-
 
 const getManagerAnswers = () => {
-  return inquirer.prompt(managerQuestions).then((answers) => {
-    switch(answers.main_menu) {
-      case "Add an intern":
-        return getInternAnswers();
-        break;
-      case "Add an engineer":
-        return getEngineerAnswers();
-        break;
-      case "Finish building the team":
-        return answers;
-        break;
-    }
-
-    // if (answers.main_menu === "Finish building the team") {
-    //   return answers;
-    // } else {
-    //   return getAnswers();
-    // }
+  console.log(managerQuestions);
+  inquirer.prompt(managerQuestions).then((answers) => {
+    let manager = new Manager(answers.name, answers.id, answers.email, answers.officeNumber);
+    employees.push(manager);
+    console.log(employees);
   });
 }
 
@@ -129,11 +78,12 @@ const getInternAnswers = () => {
   });
 }
 
+console.log("AA");
+getManagerAnswers();
 
-
-getManagerAnswers()
-  .then(console.log)
-  .catch((error) => {});
+// getManagerAnswers()
+//   .then(console.log)
+//   .catch((error) => {});
 
 const getAnswers = () => {
   return inquirer.prompt(questions).then((answers) => {
