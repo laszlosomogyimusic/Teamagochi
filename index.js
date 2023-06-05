@@ -21,7 +21,6 @@ const getManagerAnswers = () => {
   inquirer.prompt(managerQuestions).then((answers) => {
     let manager = new Manager(answers.name, answers.id, answers.email, answers.officeNumber);
     employees.push(manager);
-    console.log(employees);
     getMainMenu();
   });
 }
@@ -30,7 +29,6 @@ const getEngineerAnswers = () => {
   inquirer.prompt(engineerQuestions).then((answers) => {
     let engineer = new Engineer(answers.name, answers.id, answers.email, answers.gitHub);
     employees.push(engineer);
-    console.log(employees);
     getMainMenu();
   });
 }
@@ -39,7 +37,6 @@ const getInternAnswers = () => {
   inquirer.prompt(internQuestions).then((answers) => {
     let intern = new Intern(answers.name, answers.id, answers.email, answers.school);
     employees.push(intern);
-    console.log(employees);
     getMainMenu();
   });
 }
@@ -62,6 +59,9 @@ const getMainMenu = () => {
 }
 
 const createHtml = () => {
+  let renderedHtml = render(employees);
+  fs.writeFile(outputPath, renderedHtml, (err) =>
+  err ? console.log(err) : console.log('Success!'));
 
 }
 
