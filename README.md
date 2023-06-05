@@ -24,6 +24,10 @@ node index.js
 ### Finish
 ![mockup2](./assets/screenshots/Run4.PNG)
 
+### End Result
+![mockup2](./assets/screenshots/endresult.PNG)
+
+
 ## Tests
 The following tests were passed on Jest\
 ![testresults](./assets/screenshots/tests.PNG)
